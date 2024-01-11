@@ -86,7 +86,7 @@ void menu() {
 void chuanHoaTenSach(char *name) {
         int in_word = 0;
         for (int i = 0; name[i]; i++) {
-            //kiểm tra alphebet
+            //kiểm tra alphabet
             if (isalpha(name[i])) {
                 if (!in_word) {
                     // Chuyển thành chữ hoa
@@ -97,10 +97,10 @@ void chuanHoaTenSach(char *name) {
                     name[i] = tolower(name[i]);
                 }
                 //kiểm tra khoảng trắng
-            } else if (isspace(name[i])) {//kiểm tra khoảng trắng
+            } else if (isspace(name[i])) {
                 in_word = 0;
             } else {
-                //Xóa kí tự đặc biệt thành khoaảng trắng
+                //Xóa kí tự đặc biệt thành khoảng trắng
                 memmove(&name[i], &name[i + 1], strlen(name) - i);
                 i--;
             }
@@ -112,7 +112,6 @@ void ghiDuLieuVaoFile(book a[], int n) {
     FILE *fp = fopen("book.txt", "w");
     if (fp != NULL) {
         fprintf(fp,"\n| %-10s | %-18s | %-13s | %-13s | %-13s |\n", "Ma sach", "Ten sach", "Tac gia", "Gia tien", "The loai");
-        fprintf(fp,"|---------------------------------------------------------------------------------|\n");
         for (int i = 0; i < n; i++) {
             fprintf(fp,"| %-10s | %-18s | %-13s | %-13d | %-13s |\n",
                     a[i].maSach,
@@ -229,7 +228,7 @@ void capNhatThongTinSach(book a[], int n) {
 void sapXepGiam(book a[], int n) {
     for (int i = 0; i < n-1; i++) {
         for (int j = 0; j < n-i-1; j++) {
-            if (a[j].gia > a[j+1].gia) {
+            if (a[j].gia < a[j+1].gia) {
                 book temp = a[j];
                 a[j] = a[j+1];
                 a[j+1] = temp;
@@ -253,7 +252,7 @@ void xoaSachTheoMaSach(book a[], int *n) {
             break;
         }
     }
-//Hàm tìm sách
+//Hàm kiểm tra mã sách va xóa
     if (i != *n) {
         for (int j = i; j < *n - 1; j++) {
             a[j] = a[j + 1];
@@ -269,7 +268,7 @@ void xoaSachTheoMaSach(book a[], int *n) {
 void sapXepTang(book a[], int n) {
     for (int i = 0; i < n-1; i++) {
         for (int j = 0; j < n-i-1; j++) {
-            if (a[j].gia < a[j+1].gia) {
+            if (a[j].gia > a[j+1].gia) {
                 book temp = a[j];
                 a[j] = a[j+1];
                 a[j+1] = temp;
@@ -287,7 +286,8 @@ void timKiemSachTheoTacGia(book a[], int n) {
     int found = 0;
     printf("\nKet qua tim kiem theo tac gia '%s':\n", tacgia);
     for (int i = 0; i < n; i++) {
-        if (strstr(a[i].tacGia, tacgia) != NULL) {// kiểm tra tên tác giả nhập vào
+        // kiểm tra tên tác giả nhập vào
+        if (strstr(a[i].tacGia, tacgia) != NULL) {
             printf("%s | %s | %s | %d | %s\n", a[i].maSach, a[i].tenSach,
                    a[i].tacGia, a[i].gia, a[i].theLoai);
             found = 1;
@@ -306,17 +306,17 @@ void timKiemSachTheoKhoangGia(book a[], int n) {
     printf("Nhap gia cao nhat: ");
     scanf("%d", &giaMax);
 
-    int test = 0;
+    int check = 0;
     printf("\nKet qua tim kiem trong khoang gia %d-%d:\n", giaMin, giaMax);
     for (int i = 0; i < n; ++i) {
         if (a[i].gia >= giaMin && a[i].gia <= giaMax) {
             printf("%s | %s | %s | %d | %s\n", a[i].maSach, a[i].tenSach,
                    a[i].tacGia, a[i].gia, a[i].theLoai);
-            test = 1;
+            check = 1;
         }
     }
 
-    if (!test) {
+    if (!check) {
         printf("Trong khoang gia nay khong tim thay sach nao!!!\n");
     }
 }
