@@ -225,17 +225,24 @@ void capNhatThongTinSach(book a[], int n) {
     printf("Khong tim thay sach voi ma sach da nhap!\n");
 }
 
-void sapXepGiam(book a[], int n) {
-    for (int i = 0; i < n-1; i++) {
-        for (int j = 0; j < n-i-1; j++) {
-            if (a[j].gia < a[j+1].gia) {
-                book temp = a[j];
-                a[j] = a[j+1];
-                a[j+1] = temp;
+void sapXepGiam(book sach[], int n) {
+    int i, j;
+    int swapped;
+    for (i = 0; i < n - 1; i++) {
+        swapped = 0;
+        for (j = 0; j < n - i - 1; j++) {
+            if (sach[j].gia < sach[j + 1].gia) {
+                book temp = sach[j];
+                sach[j] = sach[j + 1];
+                sach[j + 1] = temp;
+                swapped = 1;
             }
         }
+        // Nếu không có sự hoán đổi nào trong lần lặp này, dừng vòng lặp
+        if (swapped == 0)
+            break;
     }
-    outPut(a,n);
+    outPut(sach, n);
 }
 
 void xoaSachTheoMaSach(book a[], int *n) {
@@ -265,17 +272,24 @@ void xoaSachTheoMaSach(book a[], int *n) {
     }
 }
 
-void sapXepTang(book a[], int n) {
-    for (int i = 0; i < n-1; i++) {
-        for (int j = 0; j < n-i-1; j++) {
-            if (a[j].gia > a[j+1].gia) {
-                book temp = a[j];
-                a[j] = a[j+1];
-                a[j+1] = temp;
+void sapXepTang(book sach[], int n) {
+    int i, j;
+    int swapped;
+    for (i = 0; i < n - 1; i++) {
+        swapped = 0;
+        for (j = 0; j < n - i - 1; j++) {
+            if (sach[j].gia > sach[j + 1].gia) {
+                book temp = sach[j];
+                sach[j] = sach[j + 1];
+                sach[j + 1] = temp;
+                swapped = 1;
             }
         }
+        // Nếu không có sự hoán đổi nào trong lần lặp này, dừng vòng lặp
+        if (swapped == 0)
+            break;
     }
-    outPut(a,n);
+    outPut(sach, n);
 }
 
 void timKiemSachTheoTacGia(book a[], int n) {
