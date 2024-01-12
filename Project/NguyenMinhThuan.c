@@ -111,9 +111,9 @@ void chuanHoaTenSach(char *name) {
 void ghiDuLieuVaoFile(book a[], int n) {
     FILE *fp = fopen("book.txt", "w");
     if (fp != NULL) {
-        fprintf(fp,"\n| %-10s | %-18s | %-13s | %-13s | %-13s |\n", "Ma sach", "Ten sach", "Tac gia", "Gia tien", "The loai");
+        fprintf(fp,"\n %-10s  %-18s  %-13s  %-13s  %-13s \n", "Ma sach", "Ten sach", "Tac gia", "Gia tien", "The loai");
         for (int i = 0; i < n; i++) {
-            fprintf(fp,"| %-10s | %-18s | %-13s | %-13d | %-13s |\n",
+            fprintf(fp," %-10s  %-18s  %-13s  %-13d  %-13s \n",
                     a[i].maSach,
                     a[i].tenSach,
                     a[i].tacGia,
@@ -231,7 +231,7 @@ void sapXepGiam(book sach[], int n) {
     for (i = 0; i < n - 1; i++) {
         swapped = 0;
         for (j = 0; j < n - i - 1; j++) {
-            if (sach[j].gia < sach[j + 1].gia) {
+            if (sach[j].gia > sach[j + 1].gia) {
                 book temp = sach[j];
                 sach[j] = sach[j + 1];
                 sach[j + 1] = temp;
@@ -278,7 +278,7 @@ void sapXepTang(book sach[], int n) {
     for (i = 0; i < n - 1; i++) {
         swapped = 0;
         for (j = 0; j < n - i - 1; j++) {
-            if (sach[j].gia > sach[j + 1].gia) {
+            if (sach[j].gia < sach[j + 1].gia) {
                 book temp = sach[j];
                 sach[j] = sach[j + 1];
                 sach[j + 1] = temp;
@@ -302,7 +302,7 @@ void timKiemSachTheoTacGia(book a[], int n) {
     for (int i = 0; i < n; i++) {
         // kiểm tra tên tác giả nhập vào
         if (strstr(a[i].tacGia, tacgia) != NULL) {
-            printf("%s | %s | %s | %d | %s\n", a[i].maSach, a[i].tenSach,
+            printf("%s  %s  %s  %d  %s\n", a[i].maSach, a[i].tenSach,
                    a[i].tacGia, a[i].gia, a[i].theLoai);
             found = 1;
         }
@@ -324,7 +324,7 @@ void timKiemSachTheoKhoangGia(book a[], int n) {
     printf("\nKet qua tim kiem trong khoang gia %d-%d:\n", giaMin, giaMax);
     for (int i = 0; i < n; ++i) {
         if (a[i].gia >= giaMin && a[i].gia <= giaMax) {
-            printf("%s | %s | %s | %d | %s\n", a[i].maSach, a[i].tenSach,
+            printf("%s  %s  %s  %d  %s\n", a[i].maSach, a[i].tenSach,
                    a[i].tacGia, a[i].gia, a[i].theLoai);
             check = 1;
         }
